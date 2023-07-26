@@ -3,7 +3,7 @@ import Logo from "../assets/images/Logo .svg";
 
 const Nav = () => {
   return (
-    <nav>
+    <nav className="container">
       <img src={Logo} alt="Little Lemon Logo" />
       <ul>
         <li>

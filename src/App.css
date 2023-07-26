@@ -54,11 +54,21 @@ nav a {
 header {
   background-color: var(--primary-green);
 }
-header section {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
-  padding: 1rem 0;
+
+@media (min-width: 821px) {
+  header section {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 820px) {
+  header section {
+    display: grid;
+    grid-auto-flow: row;
+  }
 }
 
 header article {
@@ -142,6 +152,11 @@ main button {
   margin-block: 2rem;
 }
 
+.specials-header h1 {
+  font-family: var(--title-font);
+  letter-spacing: 4px;
+}
+
 .specials-header,
 .specials-items {
   display: flex;
@@ -196,3 +211,13 @@ main button {
 }
 
 /* Footer */
+.footer {
+  background-color: var(--secondary-darkgrey);
+  color: #ffffff;
+  margin-top: 2rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+}

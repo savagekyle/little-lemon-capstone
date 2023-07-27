@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <nav className="container">
-      <img src={Logo} alt="Little Lemon Logo" />
+      <Link to="/">
+        <img src={Logo} alt="Little Lemon Logo" />
+      </Link>
+
       <ul>
         <li>
           <Link to="/">Home</Link>

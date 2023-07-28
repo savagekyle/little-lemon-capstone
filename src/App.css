@@ -225,9 +225,9 @@ footer {
 /* Booking Page Form */
 
 .booking {
-  height: 100dvh;
-  height: 100svh;
-  height: 100vh;
+  height: 90dvh;
+  height: 90svh;
+  height: 90vh;
 }
 
 .reservation-box {

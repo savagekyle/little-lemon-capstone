@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 
-const BookingForm = () => {
+const BookingForm = (props) => {
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("17:00");
   const [guests, setGuests] = useState(1);
-  const [occasion, setOccasion] = useState("");
+  const [occasion, setOccasion] = useState("Birthday");
 
   const handleDateChange = (event) => {
+    event.preventDefault();
     setDate(event.target.value);
+
+    // Call the updateTimes function when the date field is changed
+    props.updateTimes(event);
   };
 
   const handleTimeChange = (event) => {
+    event.preventDefault();
     setTime(event.target.value);
   };
 
   const handleGuestsChange = (event) => {
+    event.preventDefault();
     setGuests(event.target.value);
   };
 
   const handleOccasionChange = (event) => {
+    event.preventDefault();
     setOccasion(event.target.value);
   };
 
@@ -45,12 +52,9 @@ const BookingForm = () => {
           />
           <label htmlFor="res-time">Choose time</label>
           <select id="res-time " value={time} onChange={handleTimeChange}>
-            <option>17:00</option>
-            <option>18:00</option>
-            <option>19:00</option>
-            <option>20:00</option>
-            <option>21:00</option>
-            <option>22:00</option>
+            {props.availableTimes.map((time) => (
+              <option key={time}>{time}</option>
+            ))}
           </select>
           <label htmlFor="guests">Number of guests</label>
           <input

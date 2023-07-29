@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BookingForm = (props) => {
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("17:00");
+  const [time, setTime] = useState("");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
+
+  const navigate = useNavigate();
 
   const handleDateChange = (event) => {
     event.preventDefault();
     setDate(event.target.value);
-
-    // Call the updateTimes function when the date field is changed
-    props.updateTimes(event);
   };
 
   const handleTimeChange = (event) => {
@@ -29,19 +29,11 @@ const BookingForm = (props) => {
     setOccasion(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Date:", date);
-    console.log("Time:", time);
-    console.log("Guests:", guests);
-    console.log("Occasion:", occasion);
-  };
-
   return (
     <div className="container booking">
       <div className="reservation-box">
         <h1>Create a Reservation</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={props.onSubmit}>
           <label htmlFor="res-date">Choose date</label>
           <input
             type="date"
@@ -51,10 +43,12 @@ const BookingForm = (props) => {
             required
           />
           <label htmlFor="res-time">Choose time</label>
-          <select id="res-time " value={time} onChange={handleTimeChange}>
-            {props.availableTimes.map((time) => (
-              <option key={time}>{time}</option>
-            ))}
+          <select id="res-time" value={time} onChange={handleTimeChange}>
+            {!props.isLoading &&
+              props.availableTimes.map((time) => (
+                <option key={time}>{time}</option>
+              ))}
+            {props.isLoading && <option disabled>Loading...</option>}
           </select>
           <label htmlFor="guests">Number of guests</label>
           <input

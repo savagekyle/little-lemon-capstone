@@ -51,7 +51,6 @@ function App() {
     const isSubmitted = await submitAPI(formData);
     setIsLoading(false);
 
-    // If the API call returns true, navigate to the booking confirmation page
     if (isSubmitted) {
       navigate("/booking-confirmation");
     }

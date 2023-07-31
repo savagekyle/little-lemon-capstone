@@ -271,3 +271,23 @@ form button {
 .error-message {
   color: red;
 }
+
+/* Confirmation page */
+.confirmation-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+.confirmation-page h1 {
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.confirmation-page p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}

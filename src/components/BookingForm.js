@@ -69,12 +69,18 @@ const BookingForm = (props) => {
             id="res-date"
             value={date}
             onChange={handleDateChange}
+            aria-label="On Click"
             required
           />
           {dateError && <div className="error-message">{dateError}</div>}
 
           <label htmlFor="res-time">Choose time</label>
-          <select id="res-time" value={time} onChange={handleTimeChange}>
+          <select
+            id="res-time"
+            value={time}
+            onChange={handleTimeChange}
+            aria-label="On Click"
+          >
             {!props.isLoading &&
               props.availableTimes.map((time) => (
                 <option key={time}>{time}</option>
@@ -100,13 +106,16 @@ const BookingForm = (props) => {
             id="occasion"
             value={occasion}
             onChange={handleOccasionChange}
+            aria-label="On Click"
           >
             <option>Birthday</option>
             <option>Anniversary</option>
             <option>Other</option>
           </select>
 
-          <button type="submit">Make Your Reservation</button>
+          <button type="submit" aria-label="On Click">
+            Make Your Reservation
+          </button>
         </form>
       </div>
     </div>

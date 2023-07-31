@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const BookingForm = (props) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
-
-  const navigate = useNavigate();
+  const [dateError, setDateError] = useState("");
+  const [guestsError, setGuestsError] = useState("");
 
   const handleDateChange = (event) => {
     event.preventDefault();
+    const selectedDate = new Date(event.target.value);
+    const today = new Date();
+
+    selectedDate.setDate(selectedDate.getDate() + 1);
+
+    if (selectedDate < today) {
+      setDateError("Selected date cannot be in the past.");
+    } else {
+      setDateError("");
+    }
+
     setDate(event.target.value);
   };
 
@@ -21,7 +31,15 @@ const BookingForm = (props) => {
 
   const handleGuestsChange = (event) => {
     event.preventDefault();
-    setGuests(event.target.value);
+    const guestsValue = parseInt(event.target.value);
+
+    if (guestsValue < 1 || guestsValue > 10) {
+      setGuestsError("Number of guests must be between 1 and 10.");
+    } else {
+      setGuestsError("");
+    }
+
+    setGuests(guestsValue);
   };
 
   const handleOccasionChange = (event) => {
@@ -29,11 +47,22 @@ const BookingForm = (props) => {
     setOccasion(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    props.onSubmit({
+      date,
+      time,
+      guests,
+      occasion,
+    });
+  };
+
   return (
     <div className="container booking">
       <div className="reservation-box">
         <h1>Create a Reservation</h1>
-        <form onSubmit={props.onSubmit}>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="res-date">Choose date</label>
           <input
             type="date"
@@ -42,6 +71,8 @@ const BookingForm = (props) => {
             onChange={handleDateChange}
             required
           />
+          {dateError && <div className="error-message">{dateError}</div>}
+
           <label htmlFor="res-time">Choose time</label>
           <select id="res-time" value={time} onChange={handleTimeChange}>
             {!props.isLoading &&
@@ -50,6 +81,7 @@ const BookingForm = (props) => {
               ))}
             {props.isLoading && <option disabled>Loading...</option>}
           </select>
+
           <label htmlFor="guests">Number of guests</label>
           <input
             type="number"
@@ -61,6 +93,8 @@ const BookingForm = (props) => {
             onChange={handleGuestsChange}
             required
           />
+          {guestsError && <div className="error-message">{guestsError}</div>}
+
           <label htmlFor="occasion">Occasion</label>
           <select
             id="occasion"
@@ -71,6 +105,7 @@ const BookingForm = (props) => {
             <option>Anniversary</option>
             <option>Other</option>
           </select>
+
           <button type="submit">Make Your Reservation</button>
         </form>
       </div>
